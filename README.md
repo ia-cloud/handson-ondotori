@@ -9,7 +9,7 @@
 + --
 
 ### 使い方
-1. 起動 `docker-compose up`
+1. 起動 `npm run start`
 1. `http://{host}:3000` でWebサーバが起動する
 1. `http://{host}:3000/` へ計測データのXMLをPOST (適切な `Content-Type` を設定してください)
 1. ia-cloudのCCSへデータが格納される
