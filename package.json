@@ -10,6 +10,10 @@
   },
   "keywords": [],
   "author": "tomoki1207",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ia-cloud/handson-ondotori.git"
+  },
   "files": [
     "index.js",
     "dist/",
