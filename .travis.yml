@@ -2,7 +2,18 @@ language: node_js
 node_js:
   - "6"
 sudo: false
+services:
+  - docker
 cache:
   directories:
     - node_modules
 script: npm test
+
+before_deploy:
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+deploy:
+  provider: script
+  script: deploy.sh
+  #on:
+  #  branch: master
