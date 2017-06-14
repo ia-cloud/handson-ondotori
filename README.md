@@ -1,6 +1,8 @@
 おんどとりプロキシ
 ===
 
+[![Build Status](https://travis-ci.org/ia-cloud/handson-ondotori.svg?branch=master)](https://travis-ci.org/ia-cloud/handson-ondotori)
+
 [おんどとり](https://www.tandd.co.jp/product/)の測定データを受け取り、ia-cloud形式でCCSへデータを受け渡します
 
 ###
