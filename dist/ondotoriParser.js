@@ -10,7 +10,7 @@ var parse = function parse(xml) {
       dataName: 'temperature',
       unit: '℃',
       // dig a required property
-      dataValue: xml.venture.company[0].name[0]
+      dataValue: xml.root.device[0].temperature[0]
     }]
   });
 };

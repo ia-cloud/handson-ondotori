@@ -54,6 +54,6 @@ const throwNotImplemented = () => {
 };
 
 export const connect = throwNotImplemented;
-export const retrive = throwNotImplemented;
+export const retrieve = throwNotImplemented;
 export const getStatus = throwNotImplemented;
 

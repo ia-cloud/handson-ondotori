@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getStatus = exports.retrive = exports.connect = exports.store = undefined;
+exports.getStatus = exports.retrieve = exports.connect = exports.store = undefined;
 
 var _request = require('request');
 
@@ -73,5 +73,5 @@ var throwNotImplemented = function throwNotImplemented() {
 };
 
 var connect = exports.connect = throwNotImplemented;
-var retrive = exports.retrive = throwNotImplemented;
+var retrieve = exports.retrieve = throwNotImplemented;
 var getStatus = exports.getStatus = throwNotImplemented;
