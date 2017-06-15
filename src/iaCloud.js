@@ -2,9 +2,11 @@ import request from 'request';
 import { v1 } from 'uuid';
 import moment from 'moment';
 
-const post = (payload) => {
+const API_URL = 'https://a6c9402vn9.execute-api.ap-northeast-1.amazonaws.com/Test3_Stage/test3';
+
+const post = (payload, url) => {
   const opts = {
-    url: 'https://a6c9402vn9.execute-api.ap-northeast-1.amazonaws.com/Test3_Stage/test3',
+    url: url || API_URL,
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -43,9 +45,9 @@ const storeFormat = content => ({
   dataObject: packContent(content),
 });
 
-export const store = (objectModel) => {
+export const store = (objectModel, url) => {
   const payload = storeFormat(objectModel);
-  return post(payload);
+  return post(payload, url);
   // shold be chain promises when json response is returned.
 };
 
