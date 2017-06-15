@@ -6,7 +6,7 @@
 # - AWS_SECRET_ACCESS_KEY
 
 # define vars
-AWS_DEFAULT_REGION=us-east-1
+AWS_DEFAULT_REGION=ap-northeast-1
 AWS_ECS_TASKDEF_NAME=ia-cloud-handson-webapp
 AWS_ECS_CLUSTER_NAME=ia-cloud-handson-cluster
 AWS_ECS_SERVICE_NAME=ia-cloud-handson-service
@@ -23,9 +23,9 @@ configure_aws_cli(){
 
 # push docker image
 push_ecr_image(){
-  docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/${AWS_ECR_REP_NAME}:$TRAVIS_COMMIT .
+  docker build -t $AWS_ACCOUNT_ID.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REP_NAME}:$TRAVIS_COMMIT .
   eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION})
-  docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/${AWS_ECR_REP_NAME}:$TRAVIS_COMMIT
+  docker push $AWS_ACCOUNT_ID.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REP_NAME}:$TRAVIS_COMMIT
 }
 
 # create task
@@ -39,14 +39,15 @@ create_task_def(){
       "cpu": 10,
       "portMappings": [
         {
+          "hostPort": 80,
           "containerPort": 3000,
-          "hostPort": 80
+          "protocol": "tcp"
         }
       ]
     }
   ]'
 
-  task_def=$(printf "$template", ${AWS_ECS_TASKDEF_NAME} ${AWS_ACCOUNT_ID} ${AWS_DEFAULT_REGION} ${AWS_ECR_REP_NAME} ${TRAVIS_COMMIT})
+  task_def=$(printf "$template" ${AWS_ECS_TASKDEF_NAME} ${AWS_ACCOUNT_ID} ${AWS_DEFAULT_REGION} ${AWS_ECR_REP_NAME} ${TRAVIS_COMMIT})
 }
 
 # register task definitions

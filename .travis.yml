@@ -15,5 +15,5 @@ before_deploy:
 deploy:
   provider: script
   script: deploy.sh
-  #on:
-  #  branch: master
+  on:
+    branch: master
