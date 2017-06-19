@@ -17,7 +17,9 @@ var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var API_URL = 'https://a6c9402vn9.execute-api.ap-northeast-1.amazonaws.com/Test3_Stage/test3';
+var API_URL = process.env.IACLOUD_API_URL;
+var USER_ID = process.env.IACLOUD_USER_ID;
+var USER_PASSWORD = process.env.IACLOUD_USER_PASS;
 
 var post = function post(payload, url) {
   var opts = {
@@ -27,8 +29,8 @@ var post = function post(payload, url) {
       'Content-Type': 'application/json'
     },
     auth: {
-      user: '',
-      password: ''
+      user: USER_ID,
+      password: USER_PASSWORD
     },
     json: payload
   };
@@ -48,7 +50,7 @@ var post = function post(payload, url) {
 var connectFormat = function connectFormat(comment) {
   return {
     request: 'connect',
-    userID: '',
+    userID: USER_ID,
     FDSKey: 'jp.co.tandd.ondotori.proxy',
     FDSType: 'iaCloudFDS',
     timeStamp: (0, _moment2.default)().toISOString(),

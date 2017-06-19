@@ -1,6 +1,9 @@
 ondo-proxy:
   build: .
   environment:
-    NODE_ENV: production
+    - NODE_ENV=production
+    - IACLOUD_API_URL=https://r9431tn90a.execute-api.us-east-1.amazonaws.com/hackathon/api/iaCloud/rev06
+    - IACLOUD_USER_ID=HackathonTest
+    - IACLOUD_USER_PASS=UgtH0-YUekd(
   ports:
     - '3000:3000'

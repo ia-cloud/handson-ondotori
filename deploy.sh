@@ -4,6 +4,9 @@
 # - AWS_ACCOUNT_ID
 # - AWS_ACCESS_KEY_ID
 # - AWS_SECRET_ACCESS_KEY
+# - IACLOUD_API_URL
+# - IACLOUD_USER_ID
+# - IACLOUD_USER_PASS
 
 # define vars
 AWS_DEFAULT_REGION=ap-northeast-1
@@ -43,11 +46,16 @@ create_task_def(){
           "containerPort": 3000,
           "protocol": "tcp"
         }
+      ],
+      "environment": [
+        { "name": "IACLOUD_API_URL", "value": "%s" },
+        { "name": "IACLOUD_USER_ID", "value": "%s" },
+        { "name": "IACLOUD_USER_PASS", "value": "%s" },
       ]
     }
   ]'
 
-  task_def=$(printf "$template" ${AWS_ECS_TASKDEF_NAME} ${AWS_ACCOUNT_ID} ${AWS_DEFAULT_REGION} ${AWS_ECR_REP_NAME} ${TRAVIS_COMMIT})
+  task_def=$(printf "$template" ${AWS_ECS_TASKDEF_NAME} ${AWS_ACCOUNT_ID} ${AWS_DEFAULT_REGION} ${AWS_ECR_REP_NAME} ${TRAVIS_COMMIT} ${IACLOUD_API_URL} ${IACLOUD_USER_ID} ${IACLOUD_USER_PASS})
 }
 
 # register task definitions
