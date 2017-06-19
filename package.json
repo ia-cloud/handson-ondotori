@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint src",
     "build": "babel src -d dist/",
     "start": "node index.js",
     "test": "cross-env NODE_ENV=test mocha"
@@ -55,6 +56,8 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
     "mocha": "^3.4.2",
-    "power-assert": "^1.4.4"
+    "nock": "^9.0.13",
+    "power-assert": "^1.4.4",
+    "rewire": "^2.5.2"
   }
 }
