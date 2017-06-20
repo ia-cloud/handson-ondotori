@@ -20,7 +20,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var API_URL = 'https://a6c9402vn9.execute-api.ap-northeast-1.amazonaws.com/Test3_Stage/test3';
 
 var post = function post(payload, url) {
-  console.log(JSON.stringify(payload));
   var opts = {
     url: url || API_URL,
     method: 'POST',
