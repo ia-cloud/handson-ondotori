@@ -50,7 +50,7 @@ create_task_def(){
       "environment": [
         { "name": "IACLOUD_API_URL", "value": "%s" },
         { "name": "IACLOUD_USER_ID", "value": "%s" },
-        { "name": "IACLOUD_USER_PASS", "value": "%s" },
+        { "name": "IACLOUD_USER_PASS", "value": "%s" }
       ]
     }
   ]'
