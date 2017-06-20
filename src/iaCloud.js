@@ -2,7 +2,9 @@ import request from 'request';
 import { v1 } from 'uuid';
 import moment from 'moment';
 
-const API_URL = 'https://a6c9402vn9.execute-api.ap-northeast-1.amazonaws.com/Test3_Stage/test3';
+const API_URL = process.env.IACLOUD_API_URL;
+const USER_ID = process.env.IACLOUD_USER_ID;
+const USER_PASSWORD = process.env.IACLOUD_USER_PASS;
 
 const post = (payload, url) => {
   const opts = {
@@ -12,8 +14,8 @@ const post = (payload, url) => {
       'Content-Type': 'application/json',
     },
     auth: {
-      user: '',
-      password: '',
+      user: USER_ID,
+      password: USER_PASSWORD,
     },
     json: payload,
   };
@@ -32,7 +34,7 @@ const post = (payload, url) => {
 
 const connectFormat = comment => ({
   request: 'connect',
-  userID: '',
+  userID: USER_ID,
   FDSKey: 'jp.co.tandd.ondotori.proxy',
   FDSType: 'iaCloudFDS',
   timeStamp: moment().toISOString(),
