@@ -7,7 +7,7 @@
     "lint": "eslint src",
     "build": "babel src -d dist/",
     "start": "node index.js",
-    "test": "cross-env NODE_ENV=test mocha"
+    "test": "cross-env NODE_ENV=test IACLOUD_USER_ID=user1 IACLOUD_USER_PASS=userpass mocha"
   },
   "keywords": [],
   "author": "tomoki1207",
