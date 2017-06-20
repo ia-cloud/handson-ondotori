@@ -26,8 +26,8 @@ var server = _http2.default.Server(app);
 
 app.post('/', function (req, res) {
   console.log(req.body);
-  return (0, _ondotoriParser2.default)(req.body).then(function (model) {
-    return (0, _iaCloud.store)(model);
+  return Promise.all([(0, _ondotoriParser2.default)(req.body), (0, _iaCloud.connect)()]).then(function (values) {
+    return (0, _iaCloud.store)(values[0], values[1]);
   }).then(function () {
     res.status(200).end('ok');
   }).catch(function (err) {

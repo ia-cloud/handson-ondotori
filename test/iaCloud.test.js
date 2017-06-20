@@ -7,11 +7,17 @@ import * as iaCloud from '../src/iaCloud';
 describe('Testing iaCloud', () => {
   const url = 'http://sample.com';
   describe('store()', () => {
-    it('request POST', () => new Promise((resolve, reject) => {
+    before(() => {
       nock(url).post('/').reply(200, { msg: 'success' });
-      iaCloud.store({ isDummy: true }, `${url}/`)
+    });
+    after(() => {
+      nock.cleanAll();
+    });
+
+    it('request POST', () => new Promise((resolve, reject) => {
+      iaCloud.store({ isDummy: true }, '', url)
         .then((body) => {
-          assert.equal(body.isDummy);
+          assert.equal(body.msg, 'success');
           resolve();
         })
         .catch((err) => {
@@ -20,9 +26,23 @@ describe('Testing iaCloud', () => {
     }));
   });
   describe('connect()', () => {
-    it('not impletented', () => {
-      assert.throws(iaCloud.connect);
+    before(() => {
+      nock(url).post('/').reply(200, { serviceID: 'newServiceID' });
     });
+    after(() => {
+      nock.cleanAll();
+    });
+
+    it('connect POST', () => new Promise((resolve, reject) => {
+      iaCloud.connect(url)
+        .then((id) => {
+          assert.equal(id, 'newServiceID');
+          resolve();
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    }));
   });
   describe('retrieve()', () => {
     it('not impletented', () => {
@@ -37,9 +57,15 @@ describe('Testing iaCloud', () => {
   describe('Testing private funcs', () => {
     const target = rewire('../src/iaCloud.js');
     describe('post()', () => {
+      before(() => {
+        nock(url).post('/').reply(200, { msg: 'success' });
+      });
+      after(() => {
+        nock.cleanAll();
+      });
+
       const post = target.__get__('post');
       it('return body when status code is 200', () => new Promise((resolve, reject) => {
-        nock(url).post('/').reply(200, { msg: 'success' });
         post({ isDummy: true }, `${url}/`)
           .then((body) => {
             assert.equal(body.msg, 'success');
@@ -93,6 +119,28 @@ describe('Testing iaCloud', () => {
       });
       it('has dataObject property', () => {
         assert.ok(formatted.dataObject !== undefined);
+      });
+    });
+    describe('connectFormat', () => {
+      const format = target.__get__('connectFormat');
+      const formatted = format();
+      it('request type is connect', () => {
+        assert.equal(formatted.request, 'connect');
+      });
+      it('has userID property', () => {
+        assert.ok(formatted.userID !== undefined);
+      });
+      it('has FDSKey property', () => {
+        assert.ok(formatted.FDSKey !== undefined);
+      });
+      it('has FDSType property', () => {
+        assert.ok(formatted.FDSType !== undefined);
+      });
+      it('has timeStamp property', () => {
+        assert.ok(formatted.timeStamp !== undefined);
+      });
+      it('has comment property', () => {
+        assert.ok(formatted.comment !== undefined);
       });
     });
   });

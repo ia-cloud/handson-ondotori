@@ -2,7 +2,7 @@ import express from 'express';
 import xmlParser from 'express-xml-bodyparser';
 import http from 'http';
 import parse from './ondotoriParser';
-import { store } from './iaCloud';
+import { connect, store } from './iaCloud';
 
 const app = express();
 app.use(xmlParser());
@@ -10,8 +10,8 @@ const server = http.Server(app);
 
 app.post('/', (req, res) => {
   console.log(req.body);
-  return parse(req.body)
-    .then(model => store(model))
+  return Promise.all([parse(req.body), connect()])
+    .then(values => store(values[0], values[1]))
     .then(() => {
       res.status(200).end('ok');
     })
