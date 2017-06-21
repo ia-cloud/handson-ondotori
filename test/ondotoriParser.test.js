@@ -1,6 +1,6 @@
 /* eslint no-undef: off */
 import assert from 'power-assert';
-import xml2js from 'xml2js';
+import xml2js from 'xml2js-parser';
 import parse from '../src/ondotoriParser';
 
 // should be replace to valid ondotori format.

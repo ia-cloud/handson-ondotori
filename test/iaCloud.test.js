@@ -6,6 +6,13 @@ import * as iaCloud from '../src/iaCloud';
 
 describe('Testing iaCloud', () => {
   const url = 'http://sample.com';
+  const dummyPostBody = {
+    device: { serial: 'serial', model: 'model', name: 'name' },
+    ch: [
+      { num: '1', name: 'ch1', temperature: '30.0', unit: 'C' },
+      { num: '2', name: 'ch2', temperature: '23.5', unit: 'c' },
+    ],
+  };
   describe('store()', () => {
     before(() => {
       nock(url).post('/').reply(200, { msg: 'success' });
@@ -15,7 +22,7 @@ describe('Testing iaCloud', () => {
     });
 
     it('request POST', () => new Promise((resolve, reject) => {
-      iaCloud.store({ isDummy: true }, '', url)
+      iaCloud.store(dummyPostBody, '', url)
         .then((body) => {
           assert.equal(body.msg, 'success');
           resolve();
@@ -94,7 +101,7 @@ describe('Testing iaCloud', () => {
     });
     describe('packContent()', () => {
       const pack = target.__get__('packContent');
-      const packed = pack({ content: 'dummy' });
+      const packed = pack(dummyPostBody);
       it('has objectType property', () => {
         assert.ok(packed.objectType !== undefined);
       });
@@ -104,13 +111,16 @@ describe('Testing iaCloud', () => {
       it('has timeStamp property', () => {
         assert.ok(packed.timeStamp !== undefined);
       });
-      it('has ObjectContent property', () => {
-        assert.ok(packed.ObjectContent !== undefined);
+      it('has length property', () => {
+        assert.ok(packed.length !== undefined);
+      });
+      it('has ObjectArray property', () => {
+        assert.ok(packed.ObjectArray !== undefined);
       });
     });
     describe('storeFormat()', () => {
       const format = target.__get__('storeFormat');
-      const formatted = format({ content: 'dummy' });
+      const formatted = format(dummyPostBody);
       it('request type is store', () => {
         assert.equal(formatted.request, 'store');
       });
