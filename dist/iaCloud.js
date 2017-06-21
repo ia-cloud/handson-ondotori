@@ -72,12 +72,22 @@ var connect = exports.connect = function connect(url) {
 
 var packContent = function packContent(content) {
   return {
-    objectType: 'iaCloudObject',
-    objectKey: 'maybe.deviceid.or.serialno',
+    objectType: 'iaCloudObjectArray',
+    objectKey: content.device.model + ':' + content.device.serial,
     objectDescription: 'temperature data from ondotori',
     timeStamp: (0, _moment2.default)().toISOString(),
     // instanceKey: '',
-    ObjectContent: content
+    length: content.ch.length,
+    ObjectArray: content.ch.map(function (ch) {
+      return {
+        objectType: 'iaCloudObject',
+        objectKey: content.device.model + ':' + content.device.serial + '[' + ch.num + ']',
+        ObjectContent: {
+          contentType: 'iaCloudData',
+          contentData: [{ dataName: 'Ch', dataValue: ch.name, unit: null }, { dataName: 'temperature', dataValue: ch.temperature, unit: ch.unit }]
+        }
+      };
+    })
   };
 };
 

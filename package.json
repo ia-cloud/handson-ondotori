@@ -42,12 +42,12 @@
     }
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "express-xml-bodyparser": "^0.3.0",
     "moment": "^2.18.1",
     "request": "^2.81.0",
     "uuid": "^3.0.1",
-    "xml2js": "^0.4.17"
+    "xml2js-parser": "^1.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

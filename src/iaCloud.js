@@ -53,12 +53,23 @@ export const connect = (url) => {
 };
 
 const packContent = content => ({
-  objectType: 'iaCloudObject',
-  objectKey: 'maybe.deviceid.or.serialno',
+  objectType: 'iaCloudObjectArray',
+  objectKey: `${content.device.model}:${content.device.serial}`,
   objectDescription: 'temperature data from ondotori',
   timeStamp: moment().toISOString(),
   // instanceKey: '',
-  ObjectContent: content,
+  length: content.ch.length,
+  ObjectArray: content.ch.map(ch => ({
+    objectType: 'iaCloudObject',
+    objectKey: `${content.device.model}:${content.device.serial}[${ch.num}]`,
+    ObjectContent: {
+      contentType: 'iaCloudData',
+      contentData: [
+        { dataName: 'Ch', dataValue: ch.name, unit: null },
+        { dataName: 'temperature', dataValue: ch.temperature, unit: ch.unit },
+      ],
+    },
+  })),
 });
 
 const storeFormat = (content, serviceId) => ({
