@@ -14,7 +14,9 @@ script:
 before_deploy:
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
+  - npm run build
 deploy:
+  skip_cleanup: true
   provider: script
   script: chmod +x ./deploy.sh && ./deploy.sh
   on:
