@@ -22,11 +22,11 @@ const post = (payload, url) => {
   return new Promise((resolve, reject) => {
     request(opts, (err, res, body) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         return reject(err);
       }
       // 200 returned although when occurred error on CCS.
-      console.log(body);
+      // console.log(body);
       return resolve(body);
     });
   });

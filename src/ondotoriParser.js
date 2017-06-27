@@ -21,7 +21,7 @@ export const parseDataXml = (xml) => {
   const file = parseStringSync(xml, { explicitArray: false }).file;
   const ch1 = file.group.remote.ch[0];
   const ch2 = file.group.remote.ch[1];
-  return Promise.resolve({
+  return {
     device: {
       serial: file.base.serial,
       model: file.base.model,
@@ -41,7 +41,7 @@ export const parseDataXml = (xml) => {
         unit: ch2.current.unit,
       },
     ],
-  });
+  };
 };
 
 export const buildMsg = (cmd, msg) => `R=${cmd},0\r\n${msg}`;
