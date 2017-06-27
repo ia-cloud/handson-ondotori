@@ -107,9 +107,9 @@ describe('Testing ondotoriParser', () => {
     });
   });
   describe('parserDataXml()', () => {
-    it('valid xml', () => parser.parseDataXml(sourceXml).then((json) => {
-      assert.deepEqual(json, expiredJson);
-    }));
+    it('valid xml', () => {
+      assert.deepEqual(parser.parseDataXml(sourceXml), expiredJson);
+    });
     it('target property not exists', () => assert.throws(() => parser.parseDataXml('')));
   });
 });

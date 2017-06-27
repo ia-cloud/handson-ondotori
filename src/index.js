@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import http from 'http';
 import * as parser from './ondotoriParser';
 import { connect, store } from './iaCloud';
+import postTwitter from './tweet';
 
 const app = express();
 app.use(bodyParser.text({ type: '*/*' }));
@@ -18,8 +19,12 @@ app.post('/', (req, res) => {
 
   // receive data
   if (reqData.cmd === parser.CMD_SEND_DATA) {
-    return Promise.all([parser.parseDataXml(reqData.data), connect()])
-      .then(values => store(values[0], values[1]))
+    const payload = parser.parseDataXml(reqData.data);
+
+    postTwitter(payload);
+
+    return connect()
+      .then(serviceID => store(payload, serviceID))
       .then(() => {
         res.status(200).send(parser.buildMsg(reqData.cmd));
       })
