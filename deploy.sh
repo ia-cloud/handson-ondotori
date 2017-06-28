@@ -7,6 +7,10 @@
 # - IACLOUD_API_URL
 # - IACLOUD_USER_ID
 # - IACLOUD_USER_PASS
+# - TWITTER_ACCESS_TOKEN
+# - TWITTER_ACCESS_TOKEN_SECRET
+# - TWITTER_CONSUMER_KEY
+# - TWITTER_CONSUMER_SECRET
 
 # define vars
 AWS_DEFAULT_REGION=ap-northeast-1
@@ -50,12 +54,16 @@ create_task_def(){
       "environment": [
         { "name": "IACLOUD_API_URL", "value": "%s" },
         { "name": "IACLOUD_USER_ID", "value": "%s" },
-        { "name": "IACLOUD_USER_PASS", "value": "%s" }
+        { "name": "IACLOUD_USER_PASS", "value": "%s" },
+        { "name": "TWITTER_ACCESS_TOKEN", "value": "%s" },
+        { "name": "TWITTER_ACCESS_TOKEN_SECRET", "value": "%s" },
+        { "name": "TWITTER_CONSUMER_KEY", "value": "%s" },
+        { "name": "TWITTER_CONSUMER_SECRET", "value": "%s" }
       ]
     }
   ]'
 
-  task_def=$(printf "$template" ${AWS_ECS_TASKDEF_NAME} ${AWS_ACCOUNT_ID} ${AWS_DEFAULT_REGION} ${AWS_ECR_REP_NAME} ${TRAVIS_COMMIT} ${IACLOUD_API_URL} ${IACLOUD_USER_ID} ${IACLOUD_USER_PASS})
+  task_def=$(printf "$template" ${AWS_ECS_TASKDEF_NAME} ${AWS_ACCOUNT_ID} ${AWS_DEFAULT_REGION} ${AWS_ECR_REP_NAME} ${TRAVIS_COMMIT} ${IACLOUD_API_URL} ${IACLOUD_USER_ID} ${IACLOUD_USER_PASS} ${TWITTER_ACCESS_TOKEN} ${TWITTER_ACCESS_TOKEN_SECRET} ${TWITTER_CONSUMER_KEY} ${TWITTER_CONSUMER_SECRET})
 }
 
 # register task definitions
